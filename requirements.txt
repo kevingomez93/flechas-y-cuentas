@@ -1,0 +1,3 @@
+# Esto instala pygame-ce, que es una version mejorada de pygame.
+# Lo uso porque en la compu donde lo estoy probando pygame solo no anda.
+pygame-ce>=2.5.0
