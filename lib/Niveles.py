@@ -1,9 +1,8 @@
 import random
-from lib.Color import CIELO_N1, CIELO_N2, CIELO_N3
 
 
 class ConfigNivel:
-    def __init__(self, numero, nombre, viento, vel_x, vel_y, tiempo, flechas, generador, color_cielo):
+    def __init__(self, numero, nombre, viento, vel_x, vel_y, tiempo, flechas, generador, bob=0.0):
         self.numero = numero
         self.nombre = nombre
         self.viento = viento
@@ -12,7 +11,7 @@ class ConfigNivel:
         self.tiempo_ronda = tiempo
         self.flechas = flechas
         self.generador = generador
-        self.color_cielo = color_cielo
+        self.bob = bob
 
 
 def _op_suma_resta():
@@ -51,9 +50,9 @@ def _op_mixta():
 
 
 NIVELES = [
-    ConfigNivel(1, "Nivel 1", 0.0, 0.0, 0.0, 20, 20, _op_suma_resta, CIELO_N1),
-    ConfigNivel(2, "Nivel 2", 0.008, 0.0, 1.8, 18, 18, _op_mult_div, CIELO_N2),
-    ConfigNivel(3, "Nivel 3", 0.02, 0.0, 3.5, 15, 15, _op_mixta, CIELO_N3),
+    ConfigNivel(1, "Nivel 1", 0.0, 0.0, 0.0, 20, 20, _op_suma_resta, bob=10.0),
+    ConfigNivel(2, "Nivel 2", 0.008, 0.0, 1.8, 18, 18, _op_mult_div, bob=16.0),
+    ConfigNivel(3, "Nivel 3", 0.02, 0.0, 3.5, 15, 15, _op_mixta, bob=22.0),
 ]
 
 

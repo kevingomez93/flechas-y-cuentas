@@ -11,13 +11,14 @@ from lib.Var import (
     ANCHO, ALTO, FPS, TITULO,
     ESTADO_MENU, ESTADO_JUEGO, ESTADO_NIVEL_OK,
     ESTADO_GAME_OVER, ESTADO_VICTORIA, ESTADO_CREDITOS,
-    ACIERTOS_NIVEL, VIDAS, TOTAL_NIVELES,
+    ACIERTOS_NIVEL, TOTAL_NIVELES,
     PUNTOS_CORRECTO, PUNTOS_BONUS_T, PUNTOS_FALLO, PUNTOS_ERRAR,
     BLANCOS_POR_RON, VEL_ANGULO
 )
 from lib.Entidades import Arquero, Flecha, Blanco, generar_blancos
 from lib.Niveles import ConfigNivel, obtener_nivel, nueva_operacion
 from lib.Assets import cargar_fondo
+from lib.Audio import init_audio, reproducir
 
 
 _fuentes = {}
@@ -99,7 +100,7 @@ def _dibujar_menu(pantalla, fondo_cache):
     pantalla.blit(fondo_cache, (0, 0))
     _pantalla_oscura(pantalla)
 
-    _centrar_texto(pantalla, _fuente("titulo"), "ARQUERIA EDUCATIVA", 140, AMARILLO)
+    _centrar_texto(pantalla, _fuente("titulo"), "FLECHAS Y CUENTAS", 140, AMARILLO)
     _centrar_texto(pantalla, _fuente("normal"), "Resolve cuentas y disparale al blanco correcto", 230, BLANCO)
 
     pygame.draw.rect(pantalla, VERDE_OSCURO, (ANCHO//2 - 120, 320, 240, 55), border_radius=12)
@@ -162,6 +163,7 @@ class EstadoJuego:
             BLANCOS_POR_RON,
             vel_x=self.config.vel_x_blancos,
             vel_y=self.config.vel_y_blancos,
+            bob_amp=self.config.bob,
         )
         self.flecha_act = None
         self.timer_ronda = self.config.tiempo_ronda * FPS
@@ -193,6 +195,7 @@ class EstadoJuego:
             self.timer_ronda -= 1
         elif not self.flecha_act:
             self._mostrar_mensaje("Tiempo agotado")
+            reproducir("fallo")
             self.flechas = max(0, self.flechas - 1)
             if self.flechas == 0:
                 self.terminado = True
@@ -209,6 +212,7 @@ class EstadoJuego:
 
         if not self.blancos and self.flecha_act is None:
             self._mostrar_mensaje("Se escaparon")
+            reproducir("fallo")
             self.flechas = max(0, self.flechas - 1)
             if self.flechas == 0:
                 self.terminado = True
@@ -221,6 +225,7 @@ class EstadoJuego:
             if not self.flecha_act.activa:
                 self.puntaje = max(0, self.puntaje + PUNTOS_ERRAR)
                 self.flechas = max(0, self.flechas - 1)
+                reproducir("fallo")
                 self._mostrar_mensaje(f"Fallaste {PUNTOS_ERRAR} pts")
                 self.flecha_act = None
                 if self.flechas == 0:
@@ -247,6 +252,7 @@ class EstadoJuego:
                         ganados = PUNTOS_CORRECTO + bonus
                         self.puntaje += ganados
                         self.aciertos += 1
+                        reproducir("acierto")
                         self._mostrar_mensaje(f"Correcto +{ganados} pts")
                         if self.aciertos >= ACIERTOS_NIVEL:
                             self.terminado = True
@@ -255,6 +261,7 @@ class EstadoJuego:
                     else:
                         self.puntaje = max(0, self.puntaje + PUNTOS_FALLO)
                         self.flechas = max(0, self.flechas - 1)
+                        reproducir("incorrecto")
                         self._mostrar_mensaje(f"Incorrecto {PUNTOS_FALLO} pts")
                         if self.flechas == 0:
                             self.terminado = True
@@ -273,6 +280,7 @@ class EstadoJuego:
                     flecha = self.arquero.liberar()
                     if flecha:
                         self.flecha_act = flecha
+                        reproducir("disparo")
 
     def dibujar(self, pantalla):
         for b in self.blancos:
@@ -328,6 +336,7 @@ class Core:
 
     def iniciar(self):
         _init_fuentes()
+        init_audio()
         self._fondo_menu = pygame.Surface((ANCHO, ALTO))
         _dibujar_fondo(self._fondo_menu, 1)
         self._loop()
@@ -410,11 +419,14 @@ class Core:
                 self.puntaje_total = self.estado_juego.puntaje
                 if self.estado_juego.derrota:
                     self.estado = ESTADO_GAME_OVER
+                    reproducir("gameover")
                 else:
                     if self.nivel_actual >= TOTAL_NIVELES:
                         self.estado = ESTADO_VICTORIA
+                        reproducir("victoria")
                     else:
                         self.estado = ESTADO_NIVEL_OK
+                        reproducir("nivel")
 
     def _dibujar(self):
         config_n = obtener_nivel(self.nivel_actual)

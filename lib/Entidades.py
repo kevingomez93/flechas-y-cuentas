@@ -130,9 +130,12 @@ class Flecha:
 
 
 class Blanco:
-    def __init__(self, x, y, numero, vel_x=0.0, vel_y=0.0, es_correcto=False):
+    def __init__(self, x, y, numero, vel_x=0.0, vel_y=0.0, es_correcto=False,
+                 bob_amp=0.0, bob_speed=0.0, fase=0.0):
         self.x = x
         self.y = y
+        self.base_x = x
+        self.base_y = y
         self.numero = numero
         self.vel_x = vel_x
         self.vel_y = vel_y
@@ -141,6 +144,11 @@ class Blanco:
         self.activo = True
         self.golpeado = False
         self.anim_timer = 0
+        # Oscilacion (flotacion) para dar mas vida y diversion al blanco
+        self.bob_amp = bob_amp
+        self.bob_speed = bob_speed
+        self.fase = fase
+        self.t = 0
         self._sprite = cargar_sprite(os.path.join("Enemigos", "diana.png"))
 
     def rect(self):
@@ -153,11 +161,16 @@ class Blanco:
             if self.anim_timer > 30:
                 self.activo = False
             return
-        self.x += self.vel_x
-        self.y += self.vel_y
-        if self.y - self.radio < 100 or self.y + self.radio > ALTO - 60:
+        self.t += 1
+        self.base_x += self.vel_x
+        self.base_y += self.vel_y
+        if self.base_y - self.radio < 100 or self.base_y + self.radio > ALTO - 60:
             self.vel_y *= -1
-        if self.x + self.radio > ANCHO + 20:
+        # Flotacion suave: oscilacion senoidal en X e Y alrededor de la base
+        osc = self.t * self.bob_speed + self.fase
+        self.x = self.base_x + math.sin(osc) * self.bob_amp
+        self.y = self.base_y + math.cos(osc * 1.3) * (self.bob_amp * 0.6)
+        if self.base_x + self.radio > ANCHO + 20:
             self.activo = False
 
     def registrar_impacto(self):
@@ -192,7 +205,7 @@ class Blanco:
         pygame.draw.circle(pantalla, NEGRO, (cx, cy), r, 2)
 
 
-def generar_blancos(respuesta, cantidad, vel_x=0.0, vel_y=0.0):
+def generar_blancos(respuesta, cantidad, vel_x=0.0, vel_y=0.0, bob_amp=0.0):
     numeros_incorrectos = _generar_incorrectos(respuesta, cantidad - 1)
     todos = [respuesta] + numeros_incorrectos
     random.shuffle(todos)
@@ -207,7 +220,10 @@ def generar_blancos(respuesta, cantidad, vel_x=0.0, vel_y=0.0):
         x = x_base + random.randint(-20, 20)
         vy = vel_y if i % 2 == 0 else -vel_y
         es_correcto = (num == respuesta)
-        blancos.append(Blanco(x, y, num, vel_x=vel_x, vel_y=vy, es_correcto=es_correcto))
+        fase = random.uniform(0, 6.28)
+        bob_speed = random.uniform(0.05, 0.09)
+        blancos.append(Blanco(x, y, num, vel_x=vel_x, vel_y=vy, es_correcto=es_correcto,
+                              bob_amp=bob_amp, bob_speed=bob_speed, fase=fase))
 
     return blancos
 

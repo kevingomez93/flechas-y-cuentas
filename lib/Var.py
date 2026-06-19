@@ -3,7 +3,7 @@
 # Ventana
 ANCHO = 960
 ALTO = 600
-TITULO = "Arqueria Educativa"
+TITULO = "Flechas y Cuentas"
 FPS = 60
 
 # Fisica
@@ -35,7 +35,6 @@ PUNTOS_ERRAR = -10
 
 # Juego
 ACIERTOS_NIVEL = 5
-VIDAS = 5
 
 # Estados del juego
 ESTADO_MENU = "menu"
