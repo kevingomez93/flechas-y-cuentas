@@ -8,7 +8,7 @@ Franco Fernandez Sica · Kevin Gomez
 
 ## Caracteristicas
 
-- Personaje futbolista (Messi, camiseta de Argentina).
+- Personaje futbolista (Messi).
 - 3 fondos de estadio distintos (dia, atardecer, noche).
 - Blancos con movimiento y flotacion progresivos por nivel.
 - 7 efectos de sonido sintetizados por codigo propio + musica de fondo (hinchada).
@@ -35,4 +35,4 @@ Requiere **pygame** (incluido en `requirements.txt`).
 ## Uso de IA
 
 Parte de la estructura y del codigo fue asistida por herramientas de IA
-(Cursor / Claude), declarado segun las pautas del TP2.
+(Cursor), declarado segun las pautas del TP2.
