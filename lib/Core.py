@@ -18,7 +18,7 @@ from lib.Var import (
 from lib.Entidades import Arquero, Flecha, Blanco, generar_blancos
 from lib.Niveles import ConfigNivel, obtener_nivel, nueva_operacion
 from lib.Assets import cargar_fondo
-from lib.Audio import init_audio, reproducir, reproducir_musica
+from lib.Audio import init_audio, reproducir, reproducir_musica, toggle_musica, musica_prendida
 
 
 _fuentes = {}
@@ -111,8 +111,14 @@ def _dibujar_menu(pantalla, fondo_cache):
     pygame.draw.rect(pantalla, AMARILLO, (ANCHO//2 - 120, 395, 240, 55), border_radius=12, width=2)
     _centrar_texto(pantalla, _fuente("grande"), "CREDITOS", 422, BLANCO)
 
-    _centrar_texto(pantalla, _fuente("pequeño"), "ENTER o clic para continuar", 490, GRIS_CLARO)
-    _centrar_texto(pantalla, _fuente("pequeño"), "↑↓ angulo  |  ESPACIO cargar/disparar  |  ESC salir", 530, GRIS)
+    estado_musica = "ON" if musica_prendida() else "OFF"
+    pygame.draw.rect(pantalla, VERDE_OSCURO if musica_prendida() else ROJO_OSCURO,
+                     (ANCHO//2 - 120, 470, 240, 55), border_radius=12)
+    pygame.draw.rect(pantalla, AMARILLO, (ANCHO//2 - 120, 470, 240, 55), border_radius=12, width=2)
+    _centrar_texto(pantalla, _fuente("grande"), f"MUSICA: {estado_musica}", 497, BLANCO)
+
+    _centrar_texto(pantalla, _fuente("pequeño"), "ENTER o clic para continuar", 555, GRIS_CLARO)
+    _centrar_texto(pantalla, _fuente("pequeño"), "↑↓ angulo  |  ESPACIO cargar/disparar  |  M musica  |  ESC salir", 585, GRIS)
 
 
 def _dibujar_nivel_ok(pantalla, nivel_num, puntaje):
@@ -274,6 +280,8 @@ class EstadoJuego:
         if evento.type == pygame.KEYDOWN:
             if evento.key == pygame.K_SPACE:
                 self.arquero.iniciar_carga()
+            elif evento.key == pygame.K_m:
+                toggle_musica()
         elif evento.type == pygame.KEYUP:
             if evento.key == pygame.K_SPACE:
                 if self.flecha_act is None and not self.terminado:
@@ -357,6 +365,9 @@ class Core:
                     else:
                         ejecutando = False
 
+                elif evento.type == pygame.KEYDOWN and evento.key == pygame.K_m:
+                    toggle_musica()
+
                 elif self.estado == ESTADO_MENU:
                     self._manejar_menu(evento)
 
@@ -377,14 +388,19 @@ class Core:
         pygame.quit()
 
     def _manejar_menu(self, evento):
-        if evento.type == pygame.KEYDOWN and evento.key == pygame.K_RETURN:
-            self._iniciar_juego()
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_RETURN:
+                self._iniciar_juego()
+            elif evento.key == pygame.K_m:
+                toggle_musica()
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             mx, my = evento.pos
             if ANCHO//2 - 120 <= mx <= ANCHO//2 + 120 and 320 <= my <= 375:
                 self._iniciar_juego()
             elif ANCHO//2 - 120 <= mx <= ANCHO//2 + 120 and 395 <= my <= 450:
                 self.estado = ESTADO_CREDITOS
+            elif ANCHO//2 - 120 <= mx <= ANCHO//2 + 120 and 470 <= my <= 525:
+                toggle_musica()
 
     def _manejar_transicion(self, evento):
         if evento.type == pygame.KEYDOWN and evento.key == pygame.K_RETURN:

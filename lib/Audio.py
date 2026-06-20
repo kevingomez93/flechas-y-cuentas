@@ -27,6 +27,20 @@ _MUSICA_FONDO = "Hinchada.mp3"
 
 _sonidos = {}
 _habilitado = False
+_musica_activa = True
+
+
+def musica_prendida():
+    return _musica_activa
+
+
+def toggle_musica():
+    global _musica_activa
+    _musica_activa = not _musica_activa
+    if _musica_activa:
+        reproducir_musica()
+    else:
+        detener_musica()
 
 
 def init_audio():
@@ -58,7 +72,7 @@ def reproducir(clave):
 
 def reproducir_musica(volumen=0.2):
     """Reproduce la musica de fondo (hinchada) en bucle, si el audio esta disponible."""
-    if not _habilitado:
+    if not _habilitado or not _musica_activa:
         return
     ruta = os.path.join(_DIR, _MUSICA_FONDO)
     try:
