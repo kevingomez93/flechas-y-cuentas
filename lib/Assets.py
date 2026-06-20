@@ -5,7 +5,14 @@ PROYECTO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def cargar_sprite(ruta):
-    return pygame.image.load(os.path.join(PROYECTO_DIR, "Sprite", ruta)).convert_alpha()
+    ruta_completa = os.path.join(PROYECTO_DIR, "Sprite", ruta)
+    try:
+        return pygame.image.load(ruta_completa).convert_alpha()
+    except (pygame.error, FileNotFoundError) as e:
+        raise FileNotFoundError(
+            f"No se pudo cargar el sprite '{ruta}'. "
+            f"Verifica que el archivo exista en la carpeta Sprite. Detalle: {e}"
+        )
 
 
 def cargar_fondo(num_nivel, ancho, alto):

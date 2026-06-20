@@ -12,11 +12,11 @@
 
 ## 1. Descripción del proyecto
 
-**Flechas y Cuentas** es un videojuego 2D desarrollado en **Python 3** con la librería **pygame**. El jugador controla un futbolista inspirado en Messi (con la camiseta de Argentina) que dispara flechas dentro de un estadio: en cada ronda aparece una operación matemática y hay que pegarle al blanco que muestra la respuesta correcta.
+**Flechas y Cuentas** es un videojuego 2D desarrollado en **Python 3** con la librería **pygame**. El jugador controla un futbolista inspirado en nuestro Messi, que dispara flechas dentro de un estadio: en cada ronda aparece una operación matemática y hay que pegarle al blanco que muestra la respuesta correcta.
 
 ![Captura del juego](Sprite/Fondos/evidencia_doc.png)
 
-El aprendizaje está en el núcleo de la mecánica —no se puede avanzar sin resolver bien las cuentas— y la ambientación futbolística actúa como gancho motivacional, haciendo el ejercicio más atractivo para un público joven.
+El aprendizaje está en el núcleo de la mecánica, no se puede avanzar sin resolver bien las cuentas. Y la ambientación futbolística actúa como gancho motivacional, haciendo el ejercicio más atractivo para un público amplio.
 
 ## 2. Modalidad educativa y reglas
 
@@ -60,10 +60,11 @@ flechas-y-cuentas/
 - Constantes centralizadas en `Color.py` y `Var.py` (sin números mágicos dispersos).
 - Configuración de niveles orientada a datos: agregar un nivel no requiere modificar la lógica.
 - Recursos de producción propia: sprites, fondos y sonidos elaborados por el grupo.
+- Manejo de excepciones: el audio tolera la falta de salida de sonido, la carga de recursos informa con mensajes claros si falta un archivo, y el arranque del juego captura errores para cerrar de forma ordenada.
 
 ## 6. Reflexión final
 
-Construir este juego nos permitió integrar los contenidos de la cursada en un producto real: diseñar un sistema con estado, entidades que interactúan y un bucle de juego coherente. Entendimos en la práctica el valor de la **programación orientada a objetos** y la **separación en módulos** —cambiar una regla o agregar un nivel se reduce a tocar configuración, no lógica central.
+Desarrollar este juego nos permitió integrar los contenidos de la cursada en un producto real: diseñar un sistema con estado, entidades que interactúan y un bucle de juego coherente. Entendimos en la práctica el valor de la **programación orientada a objetos** y la **separación en módulos**, cambiar una regla o agregar un nivel se reduce a tocar configuración, no lógica central.
 
 En cuanto al valor educativo, la fortaleza de *Flechas y Cuentas* está en que **no se puede ganar sin resolver bien las operaciones**: el aprendizaje es condición de avance, no decoración. La presión del tiempo, la dificultad progresiva y la ambientación futbolística aportan la motivación que, según la gamificación, mejora la adherencia del estudiante.
 
