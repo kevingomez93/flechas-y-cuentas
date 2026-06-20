@@ -2,12 +2,12 @@ import pygame
 import math
 import random
 
-from lib.Color import (
+from lib.colores import (
     NEGRO, BLANCO, AMARILLO, GRIS, GRIS_CLARO, ROJO, VERDE,
     HUD_FONDO, HUD_TEXTO, HUD_BORDE, MARRON_CLARO,
     VERDE_OSCURO, ROJO_OSCURO, NARANJA
 )
-from lib.Var import (
+from lib.variables import (
     ANCHO, ALTO, FPS, TITULO,
     ESTADO_MENU, ESTADO_JUEGO, ESTADO_NIVEL_OK,
     ESTADO_GAME_OVER, ESTADO_VICTORIA, ESTADO_CREDITOS,
@@ -15,16 +15,17 @@ from lib.Var import (
     PUNTOS_CORRECTO, PUNTOS_BONUS_T, PUNTOS_FALLO, PUNTOS_ERRAR,
     BLANCOS_POR_RON, VEL_ANGULO
 )
-from lib.Entidades import Arquero, Flecha, Blanco, generar_blancos
-from lib.Niveles import ConfigNivel, obtener_nivel, nueva_operacion
-from lib.Assets import cargar_fondo
-from lib.Audio import init_audio, reproducir, reproducir_musica, toggle_musica, musica_prendida
+from lib.entidades import Arquero, Flecha, Blanco, generar_blancos
+from lib.niveles import ConfigNivel, obtener_nivel, nueva_operacion
+from lib.imagenes import cargar_fondo
+from lib.sonido import init_audio, reproducir, reproducir_musica, toggle_musica, musica_prendida
 
 
 _fuentes = {}
 
 
 def _init_fuentes():
+    # fuentes que uso en todo el juego
     _fuentes["titulo"] = pygame.font.SysFont("Arial", 56, bold=True)
     _fuentes["grande"] = pygame.font.SysFont("Arial", 38, bold=True)
     _fuentes["normal"] = pygame.font.SysFont("Arial", 28)
@@ -38,6 +39,7 @@ def _fuente(clave):
 
 
 def _dibujar_fondo(pantalla, num_nivel):
+    # pongo el fondo del nivel
     fondo = cargar_fondo(num_nivel, ANCHO, ALTO)
     pantalla.blit(fondo, (0, 0))
 
@@ -60,6 +62,7 @@ def _dibujar_indicador_viento(pantalla, viento, x, y):
 
 
 def _dibujar_hud(pantalla, puntaje, nivel_num, flechas, aciertos, enunciado, tiempo_restante, viento):
+    # barra de arriba con puntaje, nivel, tiempo, etc
     pygame.draw.rect(pantalla, HUD_FONDO, (0, 0, ANCHO, 90))
     pygame.draw.line(pantalla, HUD_BORDE, (0, 90), (ANCHO, 90), 2)
 
@@ -97,20 +100,24 @@ def _centrar_texto(pantalla, fuente, texto, y, color=BLANCO):
 
 
 def _dibujar_menu(pantalla, fondo_cache):
+    # menu principal con los botones
     pantalla.blit(fondo_cache, (0, 0))
     _pantalla_oscura(pantalla)
 
     _centrar_texto(pantalla, _fuente("titulo"), "FLECHAS Y CUENTAS", 140, AMARILLO)
     _centrar_texto(pantalla, _fuente("normal"), "Resolve cuentas y disparale al blanco correcto", 230, BLANCO)
 
+    # boton jugar
     pygame.draw.rect(pantalla, VERDE_OSCURO, (ANCHO//2 - 120, 320, 240, 55), border_radius=12)
     pygame.draw.rect(pantalla, AMARILLO, (ANCHO//2 - 120, 320, 240, 55), border_radius=12, width=2)
     _centrar_texto(pantalla, _fuente("grande"), "JUGAR", 347, BLANCO)
 
+    # boton creditos
     pygame.draw.rect(pantalla, HUD_FONDO, (ANCHO//2 - 120, 395, 240, 55), border_radius=12)
     pygame.draw.rect(pantalla, AMARILLO, (ANCHO//2 - 120, 395, 240, 55), border_radius=12, width=2)
     _centrar_texto(pantalla, _fuente("grande"), "CREDITOS", 422, BLANCO)
 
+    # boton para prender/apagar musica
     estado_musica = "ON" if musica_prendida() else "OFF"
     pygame.draw.rect(pantalla, VERDE_OSCURO if musica_prendida() else ROJO_OSCURO,
                      (ANCHO//2 - 120, 470, 240, 55), border_radius=12)
@@ -160,7 +167,7 @@ class EstadoJuego:
         self.terminado = False
         self.derrota = False
         self.pausa = 0
-        self._nueva_ronda()
+        self._nueva_ronda()  # arranca la primer ronda
 
     def _nueva_ronda(self):
         self.enunciado, self.respuesta = nueva_operacion(self.config)
@@ -188,6 +195,7 @@ class EstadoJuego:
                 self._nueva_ronda()
             return
 
+        # controles del arquero
         if self.flecha_act is None:
             teclas = pygame.key.get_pressed()
             if teclas[pygame.K_UP]:
@@ -197,6 +205,7 @@ class EstadoJuego:
 
         self.arquero.actualizar()
 
+        # cuenta regresiva de la ronda
         if self.timer_ronda > 0:
             self.timer_ronda -= 1
         elif not self.flecha_act:
@@ -242,6 +251,7 @@ class EstadoJuego:
             self._verificar_colision()
 
     def _verificar_colision(self):
+        # veo si la flecha pego en algun blanco
         if not self.flecha_act:
             return
         for b in self.blancos:
@@ -468,7 +478,7 @@ class Core:
             _dibujar_victoria(self.pantalla, self.puntaje_total)
 
         elif self.estado == ESTADO_CREDITOS:
-            from Creditos import dibujar_creditos
+            from creditos import dibujar_creditos
             _dibujar_fondo(self.pantalla, 1)
             dibujar_creditos(self.pantalla, _fuentes)
 

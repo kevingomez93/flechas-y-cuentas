@@ -1,38 +1,25 @@
 # Flechas y Cuentas
 
-Videojuego educativo de arqueria con tematica de futbol: Messi dispara flechas
-dentro de un estadio y hay que pegarle al blanco con la respuesta correcta.
+Juego de arqueria con tematica de futbol. Hay que dispararle al blanco que tenga la respuesta correcta.
 
-**Trabajo Practico Integrador — Programacion 2 — Comision B — Grupo 14 — 2026**  
+Trabajo Practico Integrador - Programacion 2 - Comision B - Grupo 14 - 2026
 Franco Fernandez Sica · Kevin Gomez
-
-## Caracteristicas
-
-- Personaje futbolista (Messi).
-- 3 fondos de estadio distintos (dia, atardecer, noche).
-- Blancos con movimiento y flotacion progresivos por nivel.
-- 7 efectos de sonido sintetizados por codigo propio + musica de fondo (hinchada).
-- 3 niveles con dificultad creciente: operaciones, viento, tiempo y velocidad.
 
 ## Controles
 
-| Tecla | Accion |
-|-------|--------|
-| ↑ / ↓ | Ajustar angulo |
-| ESPACIO (mantener / soltar) | Cargar y disparar |
-| ENTER | Avanzar en menus |
-| ESC | Volver al menu / salir |
+- Flechas arriba/abajo: angulo
+- ESPACIO: cargar y disparar
+- ENTER: continuar
+- ESC: volver al menu / salir
+- M: prender/apagar musica
 
-## Requisitos e instalacion
+## Como correrlo
 
 ```
-pip install -r requirements.txt
-python Main.py
+pip install -r requerimientos.txt
+python main.py
 ```
 
-Requiere **pygame** (incluido en `requirements.txt`).
+## Sobre el codigo
 
-## Uso de IA
-
-Parte de la estructura y del codigo fue asistida por herramientas de IA
-(Cursor), declarado segun las pautas del TP2.
+El codigo fue hecho por nosotros. Algunas ideas o partes las consultamos con herramientas de IA, pero el desarrollo y la logica son propios.

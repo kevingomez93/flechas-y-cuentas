@@ -3,11 +3,11 @@ import pygame
 import math
 import random
 
-from lib.Color import (
+from lib.colores import (
     NEGRO, BLANCO, AMARILLO, ROJO_OSCURO, VERDE_OSCURO, NARANJA
 )
-from lib.Assets import cargar_sprite
-from lib.Var import (
+from lib.imagenes import cargar_sprite
+from lib.variables import (
     ARQUERO_X, ARQUERO_Y, VEL_BASE, VEL_MAX, TIEMPO_CARGA,
     GRAVEDAD, ANCHO, ALTO, BLANCO_RADIO,
     PREVIEW_PASOS, PREVIEW_SALTO
@@ -22,6 +22,7 @@ class Arquero:
         self.cargando = False
         self.tiempo_carga = 0
 
+        # imagen del arquero (messi)
         self._sprite = cargar_sprite(os.path.join("Personaje", "arquero.png"))
         self._sprite_offset = (40, 60)
 
@@ -107,6 +108,7 @@ class Flecha:
         self.vx = vx
         self.vy = vy
         self.activa = True
+        # sprite de la flecha
         self._sprite = cargar_sprite(os.path.join("Obstaculos", "flecha.png"))
 
     def actualizar(self, viento=0.0):
@@ -144,7 +146,7 @@ class Blanco:
         self.activo = True
         self.golpeado = False
         self.anim_timer = 0
-        # Oscilacion (flotacion) para dar mas vida y diversion al blanco
+        # esto es para que el blanco se mueva un poco y no sea tan aburrido
         self.bob_amp = bob_amp
         self.bob_speed = bob_speed
         self.fase = fase
@@ -206,6 +208,7 @@ class Blanco:
 
 
 def generar_blancos(respuesta, cantidad, vel_x=0.0, vel_y=0.0, bob_amp=0.0):
+    # crea los blancos, uno con la respuesta correcta y los demas con numeros parecidos
     numeros_incorrectos = _generar_incorrectos(respuesta, cantidad - 1)
     todos = [respuesta] + numeros_incorrectos
     random.shuffle(todos)

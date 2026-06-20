@@ -1,15 +1,11 @@
-"""
-Creditos.py - Informacion del juego y autores.
-Se invoca desde Core cuando el estado es ESTADO_CREDITOS.
-"""
 import pygame
 
-from lib.Color import NEGRO, BLANCO, AMARILLO, GRIS, GRIS_CLARO, HUD_FONDO, HUD_BORDE
-from lib.Var import ANCHO, ALTO
+from lib.colores import NEGRO, BLANCO, AMARILLO, GRIS, GRIS_CLARO, HUD_FONDO, HUD_BORDE
+from lib.variables import ANCHO, ALTO
 
 
-def dibujar_creditos(pantalla: pygame.Surface, fuentes: dict):
-    """Dibuja la pantalla de creditos sobre el fondo actual."""
+def dibujar_creditos(pantalla, fuentes):
+    # fondo oscuro para que se lea el texto
     s = pygame.Surface((ANCHO, ALTO), pygame.SRCALPHA)
     s.fill((0, 0, 0, 185))
     pantalla.blit(s, (0, 0))
@@ -22,17 +18,15 @@ def dibujar_creditos(pantalla: pygame.Surface, fuentes: dict):
     centrar("titulo",  "FLECHAS Y CUENTAS",           100, AMARILLO)
     centrar("normal",  "Trabajo Practico Integrador  - Programacion 2", 170, GRIS_CLARO)
 
-    # Linea separadora
+    # linea separadora
     pygame.draw.line(pantalla, HUD_BORDE, (ANCHO//2 - 300, 200), (ANCHO//2 + 300, 200), 2)
 
-    # Autores
     centrar("grande",  "Autores", 240, AMARILLO)
     centrar("normal",  "Franco Fernandez Sica  -  Kevin Gomez", 285, BLANCO)
     centrar("pequeño", "Programacion 2   |   Comision B   |   Grupo: 14   |   Año: 2026", 325, GRIS_CLARO)
 
     pygame.draw.line(pantalla, HUD_BORDE, (ANCHO//2 - 300, 360), (ANCHO//2 + 300, 360), 2)
 
-    # Descripcion educativa
     centrar("grande",  "Objetivo educativo", 395, AMARILLO)
     centrar("normal",  "Practicar calculo mental mediante mecanicas de flechas.", 435, BLANCO)
     centrar("pequeño", "El jugador entrena suma, resta, multiplicacion y division", 465, GRIS_CLARO)

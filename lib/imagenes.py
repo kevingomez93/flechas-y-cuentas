@@ -5,6 +5,7 @@ PROYECTO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def cargar_sprite(ruta):
+    # busca la imagen en la carpeta Sprite
     ruta_completa = os.path.join(PROYECTO_DIR, "Sprite", ruta)
     try:
         return pygame.image.load(ruta_completa).convert_alpha()
