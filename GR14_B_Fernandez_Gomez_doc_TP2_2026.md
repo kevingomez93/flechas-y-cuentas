@@ -52,7 +52,7 @@ flechas-y-cuentas/
 
 **Colisiones:** detección por distancia euclidiana flecha↔centro de blanco.
 
-**Audio:** 7 efectos de sonido (disparo, acierto, error, fallo, nivel, victoria, game over) **sintetizados por código propio** con la librería estándar de Python (`wave`, `math`, `struct`), sin recursos de terceros. El módulo es tolerante a fallos: si no hay salida de audio el juego continúa sin cerrarse.
+**Audio:** 7 efectos de sonido (disparo, acierto, error, fallo, nivel, victoria, game over) **sintetizados por código propio** con la librería estándar de Python (`wave`, `math`, `struct`), sin recursos de terceros. Además, una **música de fondo** ("hinchada") suena en bucle a volumen moderado para ambientar el estadio. El módulo es tolerante a fallos: si no hay salida de audio el juego continúa sin cerrarse.
 
 ## 5. Buenas prácticas aplicadas
 

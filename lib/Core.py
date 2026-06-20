@@ -18,7 +18,7 @@ from lib.Var import (
 from lib.Entidades import Arquero, Flecha, Blanco, generar_blancos
 from lib.Niveles import ConfigNivel, obtener_nivel, nueva_operacion
 from lib.Assets import cargar_fondo
-from lib.Audio import init_audio, reproducir
+from lib.Audio import init_audio, reproducir, reproducir_musica
 
 
 _fuentes = {}
@@ -337,6 +337,7 @@ class Core:
     def iniciar(self):
         _init_fuentes()
         init_audio()
+        reproducir_musica()
         self._fondo_menu = pygame.Surface((ANCHO, ALTO))
         _dibujar_fondo(self._fondo_menu, 1)
         self._loop()
