@@ -12,7 +12,7 @@
 
 ## 1. Descripción del proyecto
 
-**Flechas y Cuentas** es un videojuego 2D desarrollado en **Python 3** con la librería **pygame-ce**. El jugador controla un futbolista inspirado en Messi (con la camiseta de Argentina) que dispara flechas dentro de un estadio: en cada ronda aparece una operación matemática y hay que pegarle al blanco que muestra la respuesta correcta.
+**Flechas y Cuentas** es un videojuego 2D desarrollado en **Python 3** con la librería **pygame**. El jugador controla un futbolista inspirado en Messi (con la camiseta de Argentina) que dispara flechas dentro de un estadio: en cada ronda aparece una operación matemática y hay que pegarle al blanco que muestra la respuesta correcta.
 
 ![Captura del juego](Sprite/Fondos/evidencia_doc.png)
 

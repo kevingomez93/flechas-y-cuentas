@@ -40,5 +40,5 @@ def dibujar_creditos(pantalla: pygame.Surface, fuentes: dict):
 
     pygame.draw.line(pantalla, HUD_BORDE, (ANCHO//2 - 300, 520), (ANCHO//2 + 300, 520), 2)
 
-    centrar("pequeño", "Desarrollado con Python 3 y pygame-ce  |  2026", 545, GRIS)
+    centrar("pequeño", "Desarrollado con Python 3 y pygame  |  2026", 545, GRIS)
     centrar("pequeño", "[ ENTER o ESC para volver al menu ]", 575, GRIS)

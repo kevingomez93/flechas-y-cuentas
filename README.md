@@ -11,7 +11,7 @@ Franco Fernandez Sica · Kevin Gomez
 - Personaje futbolista (Messi, camiseta de Argentina).
 - 3 fondos de estadio distintos (dia, atardecer, noche).
 - Blancos con movimiento y flotacion progresivos por nivel.
-- 7 efectos de sonido sintetizados por codigo propio.
+- 7 efectos de sonido sonido.
 - 3 niveles con dificultad creciente: operaciones, viento, tiempo y velocidad.
 
 ## Controles
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 python Main.py
 ```
 
-Requiere **pygame-ce** (incluido en `requirements.txt`).
+Requiere **pygame** (incluido en `requirements.txt`).
 
 ## Uso de IA
 
