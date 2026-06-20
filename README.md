@@ -1,38 +1,38 @@
 # Flechas y Cuentas
 
-Juego hecho con Python y pygame para practicar calculo mental, con tematica de
-futbol: Messi dispara flechas dentro de un estadio y hay que pegarle al blanco
-que tenga la respuesta correcta.
+Videojuego educativo de arqueria con tematica de futbol: Messi dispara flechas
+dentro de un estadio y hay que pegarle al blanco con la respuesta correcta.
 
-Trabajo Practico Integrador - Programacion 2
-Integrantes: Franco Fernandez Sica y Kevin Gomez - Comision B - Grupo 14 - Año 2026
+**Trabajo Practico Integrador — Programacion 2 — Comision B — Grupo 14 — 2026**  
+Franco Fernandez Sica · Kevin Gomez
 
 ## Caracteristicas
 
-- Personaje futbolista (Messi con la camiseta de Argentina).
-- Fondos de estadio que cambian por nivel (dia, atardecer y noche).
-- Blancos con movimiento y flotacion para mas dinamismo.
-- Efectos de sonido propios (sintetizados por codigo, ver `generar_sonidos.py`).
-- 3 niveles con dificultad creciente (operaciones, viento, tiempo y velocidad).
+- Personaje futbolista (Messi, camiseta de Argentina).
+- 3 fondos de estadio distintos (dia, atardecer, noche).
+- Blancos con movimiento y flotacion progresivos por nivel.
+- 7 efectos de sonido sintetizados por codigo propio.
+- 3 niveles con dificultad creciente: operaciones, viento, tiempo y velocidad.
 
 ## Controles
 
-- Flechas ARRIBA/ABAJO: angulo
-- ESPACIO: cargar y disparar
-- ENTER: continuar
-- ESC: menu / salir
+| Tecla | Accion |
+|-------|--------|
+| ↑ / ↓ | Ajustar angulo |
+| ESPACIO (mantener / soltar) | Cargar y disparar |
+| ENTER | Avanzar en menus |
+| ESC | Volver al menu / salir |
 
-## Instalar y correr
-
-En mi maquina pygame normal no me anduvo, asi que uso pygame-ce que es lo mismo pero con algunas correcciones.
+## Requisitos e instalacion
 
 ```
 pip install -r requirements.txt
 python Main.py
 ```
 
+Requiere **pygame-ce** (incluido en `requirements.txt`).
+
 ## Uso de IA
 
-Parte de la estructura y del codigo de este proyecto fueron asistidos por
-herramientas de inteligencia artificial (Cursor / Claude). El uso fue declarado
-segun las pautas del TP2.
+Parte de la estructura y del codigo fue asistida por herramientas de IA
+(Cursor / Claude), declarado segun las pautas del TP2.
