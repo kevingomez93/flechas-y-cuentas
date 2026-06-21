@@ -1,7 +1,7 @@
 import pygame
 
-from lib.colores import NEGRO, BLANCO, AMARILLO, GRIS, GRIS_CLARO, HUD_FONDO, HUD_BORDE
-from lib.variables import ANCHO, ALTO
+from lib.Color import NEGRO, BLANCO, AMARILLO, GRIS, GRIS_CLARO, HUD_FONDO, HUD_BORDE
+from lib.Var import ANCHO, ALTO
 
 
 def dibujar_creditos(pantalla, fuentes):

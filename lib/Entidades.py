@@ -3,11 +3,11 @@ import pygame
 import math
 import random
 
-from lib.colores import (
+from lib.Color import (
     NEGRO, BLANCO, AMARILLO, ROJO_OSCURO, VERDE_OSCURO, NARANJA
 )
-from lib.imagenes import cargar_sprite
-from lib.variables import (
+from lib.Assets import cargar_sprite
+from lib.Var import (
     ARQUERO_X, ARQUERO_Y, VEL_BASE, VEL_MAX, TIEMPO_CARGA,
     GRAVEDAD, ANCHO, ALTO, BLANCO_RADIO,
     PREVIEW_PASOS, PREVIEW_SALTO

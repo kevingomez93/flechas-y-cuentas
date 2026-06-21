@@ -1,5 +1,5 @@
 import pygame
-from lib.juego import Core
+from lib.Core import Core
 
 pygame.init()
 pygame.display.set_caption("Flechas y Cuentas")

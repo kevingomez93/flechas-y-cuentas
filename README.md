@@ -17,7 +17,7 @@ Franco Fernandez Sica · Kevin Gomez
 
 ```
 pip install -r requerimientos.txt
-python main.py
+python Main.py
 ```
 
 ## Sobre el codigo
